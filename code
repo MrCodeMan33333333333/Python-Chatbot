@@ -1,0 +1,36 @@
+import openai
+
+# ✅ Set your OpenAI API key here
+API_KEY = 'your_openai_api_key_here'
+
+# ✅ Initialize OpenAI API
+openai.api_key = API_KEY
+
+def chat_with_gpt():
+    print("💬 AI Chatbot (Type 'quit' to exit)")
+    
+    # ✅ Infinite loop for chat
+    while True:
+        # ✅ Get user input
+        user_input = input("You: ")
+        
+        # ✅ Exit if user types 'quit'
+        if user_input.lower() == 'quit':
+            print("Chatbot: Goodbye! 👋")
+            break
+
+        # ✅ Generate response from OpenAI GPT-3.5
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": "You are a helpful Python assistant."},
+                {"role": "user", "content": user_input}
+            ]
+        )
+
+        # ✅ Extract the AI's response
+        ai_response = response.choices[0].message['content']
+        print(f"Chatbot: {ai_response}")
+
+if __name__ == "__main__":
+    chat_with_gpt()
